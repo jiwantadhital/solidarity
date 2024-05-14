@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "812428249974",
+    "project_id": "solidarity-135d8",
+    "storage_bucket": "solidarity-135d8.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:812428249974:android:bb6a3ee19bde218bb24857",
+        "android_client_info": {
+          "package_name": "com.app.solidarity"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBWin5rWnFEsGQloBR1x_g3WYhAlby3w-w"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:812428249974:android:ea4af570d90fd5c2b24857",
+        "android_client_info": {
+          "package_name": "com.example.solidarity"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBWin5rWnFEsGQloBR1x_g3WYhAlby3w-w"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
