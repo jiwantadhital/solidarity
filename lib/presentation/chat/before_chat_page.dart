@@ -241,21 +241,7 @@ _onSearchTextChanged(String text)async{
           ],
         ),
       ),
-      // floatingActionButton: FloatingActionButton.extended(
-      //     onPressed: () {},
-      //     label: Row(
-      //       children: [
-      //         Icon(Icons.add),
-      //         SizedBox(
-      //           width: 5,
-      //         ),
-      //         DText(
-      //             color: Colors.black,
-      //             text: "New Chat",
-      //             weight: FontWeightManager.semibold,
-      //             size: 16)
-      //       ],
-      //     )),
+     
     );
   }
 
@@ -269,7 +255,7 @@ _onSearchTextChanged(String text)async{
       child: TextField(
         controller: textEditingController,
         onChanged: (val){
-          _onSearchTextChanged(textEditingController.text.trim());
+          _onSearchTextChanged(textEditingController.text);
         },
         decoration: InputDecoration(
             contentPadding: EdgeInsets.all(10),

@@ -17,7 +17,6 @@ import 'package:solidarity/resources/constants.dart';
 import 'package:solidarity/resources/extra_widgets.dart';
 import 'package:solidarity/resources/fonts.dart';
 
-
 class ProfilePage extends StatefulWidget {
   const ProfilePage({super.key});
 
@@ -30,13 +29,12 @@ class _ProfilePageState extends State<ProfilePage> {
 
   @override
   void initState() {
-    
     context.read<FriendsBloc>().add(ByCategoryFriendsGettingEvent());
     context.read<CategoryBloc>().add(CategoryGettingEvent());
     context
         .read<ProfileBloc>()
         .add(ProfileGettingEvent(id: UserSimplePreferences.getId() ?? 1));
-  
+
     super.initState();
   }
 
@@ -84,93 +82,118 @@ class _ProfilePageState extends State<ProfilePage> {
                         // TODO: implement listener
                       },
                       builder: (context, state) {
-                        if(state is FriendsLoading){
+                        if (state is FriendsLoading) {
                           return ListShimmer();
                         }
-                        if(state is Friendserror){
+                        if (state is Friendserror) {
                           return ListShimmer();
                         }
-                        if(state is FriendsLoaded){
+                        if (state is FriendsLoaded) {
                           return ListView.builder(
-                            physics: NeverScrollableScrollPhysics(),
-                            itemCount: state.profileFriendsModel.data!.length,
-                            shrinkWrap: true,
-                            itemBuilder: (context, index) {
-                              return GestureDetector(
-                                onTap: (){
-                                  Get.to(()=>FriendProfilePage(id: state.profileFriendsModel.data![index].networkFriend!.id!,
-                             
-                              ),);
-                                },
-                                child: Container(
-                                  padding: EdgeInsets.all(10),
-                                  margin: EdgeInsets.only(top: 5, bottom: 5),
-                                  width: size.width,
-                                  decoration: BoxDecoration(color: Colors.white),
-                                  child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                    children: [
-                                     Row(
+                              physics: NeverScrollableScrollPhysics(),
+                              itemCount: state.profileFriendsModel.data!.length,
+                              shrinkWrap: true,
+                              itemBuilder: (context, index) {
+                                return GestureDetector(
+                                  onTap: () {
+                                    Get.to(
+                                      () => FriendProfilePage(
+                                        id: state.profileFriendsModel
+                                            .data![index].networkFriend!.id!,
+                                      ),
+                                    );
+                                  },
+                                  child: Container(
+                                    padding: EdgeInsets.all(10),
+                                    margin: EdgeInsets.only(top: 5, bottom: 5),
+                                    width: size.width,
+                                    decoration:
+                                        BoxDecoration(color: Colors.white),
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
                                       children: [
-                                         Container(
-                                        height: 60,
-                                        width: 60,
-                                        decoration: BoxDecoration(
-                                            color: ColorManager.primaryColor,
-                                            shape: BoxShape.circle,
-                                            border: Border.all(
-                                                width: 3,
-                                                color: Colors.grey[300]!),
-                                            image: DecorationImage(
-                                                image: NetworkImage(
-                                                    "${ApiClass.mainApi}/${state.profileFriendsModel.data![index].networkFriend!.imageUrl}"),
-                                                fit: BoxFit.cover)),
-                                      ),
-                                      SizedBox(
-                                        width: 10,
-                                      ),
-                                      Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                        children: [
-                                          DText(
-                                              color: Colors.black,
-                                              text: "${state.profileFriendsModel.data![index].networkFriend!.firstName} ${state.profileFriendsModel.data![index].networkFriend!.lastName}",
-                                              weight: FontWeightManager.medium,
-                                              size: 16),
-                                          DText(
-                                              color: Colors.black,
-                                              text: state.profileFriendsModel.data![index].networkFriend!.phone??"",
-                                              weight: FontWeightManager.regular,
-                                              size: 14),
-                                        ],
-                                      ),
-                                      ],
-                                     ),
-                                     GestureDetector(
-                                      onTap: (){
-                                        showModalBottomSheet(
-                                          isScrollControlled: true,
-                                          context: context, builder: (context){
-                                            return FeedbackBottomSheet(id: state.profileFriendsModel.data![index].networkFriend!.id!, size: size);
-                                        });
-                                      },
-                                      child: Container(
-                                        padding: EdgeInsets.all(15),
-                                        decoration: BoxDecoration(
-                                          color: Colors.grey[200],
-                                          shape: BoxShape.circle
+                                        Row(
+                                          children: [
+                                            Container(
+                                              height: 60,
+                                              width: 60,
+                                              decoration: BoxDecoration(
+                                                  color:
+                                                      ColorManager.primaryColor,
+                                                  shape: BoxShape.circle,
+                                                  border: Border.all(
+                                                      width: 3,
+                                                      color: Colors.grey[300]!),
+                                                  image: DecorationImage(
+                                                      image: NetworkImage(
+                                                          "${ApiClass.mainApi}/${state.profileFriendsModel.data![index].networkFriend!.imageUrl}"),
+                                                      fit: BoxFit.cover)),
+                                            ),
+                                            SizedBox(
+                                              width: 10,
+                                            ),
+                                            Column(
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.center,
+                                              children: [
+                                                DText(
+                                                    color: Colors.black,
+                                                    text:
+                                                        "${state.profileFriendsModel.data![index].networkFriend!.firstName} ${state.profileFriendsModel.data![index].networkFriend!.lastName}",
+                                                    weight: FontWeightManager
+                                                        .medium,
+                                                    size: 16),
+                                                DText(
+                                                    color: Colors.black,
+                                                    text: state
+                                                            .profileFriendsModel
+                                                            .data![index]
+                                                            .networkFriend!
+                                                            .phone ??
+                                                        "",
+                                                    weight: FontWeightManager
+                                                        .regular,
+                                                    size: 14),
+                                              ],
+                                            ),
+                                          ],
                                         ),
-                                        child: Icon(Icons.message_outlined,size: 16,)))
-                                    ],
+                                        GestureDetector(
+                                            onTap: () {
+                                              showModalBottomSheet(
+                                                  isScrollControlled: true,
+                                                  context: context,
+                                                  builder: (context) {
+                                                    return FeedbackBottomSheet(
+                                                        id: state
+                                                            .profileFriendsModel
+                                                            .data![index]
+                                                            .networkFriend!
+                                                            .id!,
+                                                        size: size);
+                                                  });
+                                            },
+                                            child: Container(
+                                                padding: EdgeInsets.all(15),
+                                                decoration: BoxDecoration(
+                                                    color: Colors.grey[200],
+                                                    shape: BoxShape.circle),
+                                                child: Icon(
+                                                  Icons.message_outlined,
+                                                  size: 16,
+                                                )))
+                                      ],
+                                    ),
                                   ),
-                                ),
-                              );
-                            });
+                                );
+                              });
                         }
-                        return Center(child: Text("something went wrong"),);
+                        return Center(
+                          child: Text("something went wrong"),
+                        );
                       },
                     )
                   ],
@@ -198,7 +221,8 @@ class _ProfilePageState extends State<ProfilePage> {
               },
               builder: (context, state) {
                 if (state is ProfileLoading) {
-                  return ProfileShimmer(height: 100, width: MediaQuery.of(context).size.width);
+                  return ProfileShimmer(
+                      height: 100, width: MediaQuery.of(context).size.width);
                 }
                 if (state is ProfileLoaded) {
                   return Column(
@@ -209,46 +233,48 @@ class _ProfilePageState extends State<ProfilePage> {
                           Stack(
                             children: [
                               GestureDetector(
-                                onTap: (){
-                              
-                              
-                                },
+                                onTap: () {},
                                 child: Container(
                                   height: 100,
                                   width: 100,
                                   decoration: BoxDecoration(
                                       color: Colors.green,
                                       shape: BoxShape.circle,
-                                      border:
-                                          Border.all(width: 5, color: Colors.white),
+                                      border: Border.all(
+                                          width: 5, color: Colors.white),
                                       image: DecorationImage(
-                                          image:
-                                              NetworkImage("${ApiClass.mainApi}/${state.profileModel.data!.imageUrl}"),
+                                          image: NetworkImage(
+                                              "${ApiClass.mainApi}/${state.profileModel.data!.imageUrl}"),
                                           fit: BoxFit.cover)),
                                 ),
                               ),
-                                      Positioned(
-                                                                                      top: 0,
-                                                                                      right: 0,
-                                                                                      child: GestureDetector(
-                                                                                        onTap: (){
-                                                                                          Get.to(()=>EditProfilePage(
-                                                                                            profileData: state.profileModel.data!,
-                                                                                          ));
-                                                                                        },
-                                                                                        child: Container(
-                                                                                                                                            height: 30,
-                                                                                                                                            width: 30,
-                                                                                                                                            decoration: BoxDecoration(
-                                                                                                                                              shape: BoxShape.circle,
-                                                                                                                                              color: Colors.white,
-                                                                                                                                              border: Border.all(color: ColorManager.primaryColor,width: 2)
-                                                                                                                                            ),
-                                                                                                                                            child: Center(
-                                                                                                                                              child: Icon(Icons.edit,size: 18,),
-                                                                                                                                            ),
-                                                                                                                                          ),
-                                                                                      ))
+                              Positioned(
+                                  top: 0,
+                                  right: 0,
+                                  child: GestureDetector(
+                                    onTap: () {
+                                      Get.to(() => EditProfilePage(
+                                            profileData:
+                                                state.profileModel.data!,
+                                          ));
+                                    },
+                                    child: Container(
+                                      height: 30,
+                                      width: 30,
+                                      decoration: BoxDecoration(
+                                          shape: BoxShape.circle,
+                                          color: Colors.white,
+                                          border: Border.all(
+                                              color: ColorManager.primaryColor,
+                                              width: 2)),
+                                      child: Center(
+                                        child: Icon(
+                                          Icons.edit,
+                                          size: 18,
+                                        ),
+                                      ),
+                                    ),
+                                  ))
                             ],
                           ),
                           SizedBox(
@@ -302,8 +328,7 @@ class _ProfilePageState extends State<ProfilePage> {
                         alignment: Alignment.centerLeft,
                         child: DText(
                           color: Colors.black,
-                          text:
-                              state.profileModel.data!.bioDescription??"",
+                          text: state.profileModel.data!.bioDescription ?? "",
                           align: TextAlign.start,
                           weight: FontWeightManager.regular,
                           size: 14,
@@ -313,8 +338,8 @@ class _ProfilePageState extends State<ProfilePage> {
                   );
                 }
                 if (state is ProfileError) {
-                                   return ProfileShimmer(height: 100, width: MediaQuery.of(context).size.width);
-
+                  return ProfileShimmer(
+                      height: 100, width: MediaQuery.of(context).size.width);
                 }
                 return Container();
               },
@@ -331,8 +356,8 @@ class _ProfilePageState extends State<ProfilePage> {
                 },
                 builder: (context, state) {
                   if (state is CategoryLoading) {
-                                     return ProfileShimmer(height: 50, width: MediaQuery.of(context).size.width);
-
+                    return ProfileShimmer(
+                        height: 50, width: MediaQuery.of(context).size.width);
                   }
                   if (state is Categoryloaded) {
                     return Container(
@@ -346,42 +371,53 @@ class _ProfilePageState extends State<ProfilePage> {
                               selected: currentindex == null ? true : false,
                               tap: () {
                                 currentindex = null;
-                                context.read<FriendsBloc>().add(ByCategoryFriendsGettingEvent());
+                                context
+                                    .read<FriendsBloc>()
+                                    .add(ByCategoryFriendsGettingEvent());
                                 setState(() {});
                               },
                             ),
-                           state.categoryModel.data==[]?
-                           DText(color: Colors.black, text: "No Friends Found",
-                            weight: FontWeightManager.semibold, size: 16):
-                            ListView.builder(
-                                scrollDirection: Axis.horizontal,
-                                physics: NeverScrollableScrollPhysics(),
-                                itemCount: state.categoryModel.data!.length,
-                                shrinkWrap: true,
-                                itemBuilder: (context, index) {
-                                  return FriendsBox(
-                                    selected:
-                                        currentindex == index ? true : false,
-                                    tap: () {
-                                      currentindex = index;
-                                      setState(() {
-                                        context.read<FriendsBloc>().add(ByCategoryFriendsGettingEvent(id: 
-                                        state.categoryModel.data![index].id
-                                        ));
-                                      });
-                                    },
-                                    name:
-                                        "${state.categoryModel.data![index].title}",
-                                  );
-                                }),
+                            state.categoryModel.data == []
+                                ? DText(
+                                    color: Colors.black,
+                                    text: "No Friends Found",
+                                    weight: FontWeightManager.semibold,
+                                    size: 16)
+                                :
+                                
+                                //friend type list
+
+                                 ListView.builder(
+                                    scrollDirection: Axis.horizontal,
+                                    physics: NeverScrollableScrollPhysics(),
+                                    itemCount: state.categoryModel.data!.length,
+                                    shrinkWrap: true,
+                                    itemBuilder: (context, index) {
+                                      return FriendsBox(
+                                        selected: currentindex == index
+                                            ? true
+                                            : false,
+                                        tap: () {
+                                          currentindex = index;
+                                          setState(() {
+                                            context.read<FriendsBloc>().add(
+                                                ByCategoryFriendsGettingEvent(
+                                                    id: state.categoryModel
+                                                        .data![index].id));
+                                          });
+                                        },
+                                        name:
+                                            "${state.categoryModel.data![index].title}",
+                                      );
+                                    }),
                           ],
                         ),
                       ),
                     );
                   }
                   if (state is CategoryError) {
-                                     return ProfileShimmer(height: 50, width: MediaQuery.of(context).size.width);
-
+                    return ProfileShimmer(
+                        height: 50, width: MediaQuery.of(context).size.width);
                   }
                   return Container();
                 },
